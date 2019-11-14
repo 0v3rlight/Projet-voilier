@@ -21,6 +21,7 @@
 #include "stm32f1xx_ll_system.h" // utile dans la fonction SystemClock_Config
 
 #include "Chrono.h"
+#include "girouette/girouette.h"
 
 void  SystemClock_Config(void);
 
@@ -35,21 +36,13 @@ void  SystemClock_Config(void);
 
 int main(void)
 {
-  /* Configure the system clock to 72 MHz */
-  SystemClock_Config();
-
-  /* Add your application code here */
-  // Configuration chronomètre
-	Chrono_Conf(TIM3);
-	
-	// Lancement chronomètre
-	Chrono_Start(); 
-	
-
+	init_girouette();
+	int angle;
   
   /* Infinite loop */
   while (1)
   {
+		angle = angle_girouette();
   }
 }
 

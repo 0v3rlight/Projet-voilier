@@ -37,7 +37,7 @@ void Chrono_Conf(TIM_TypeDef * Timer)
 	Chrono_Timer=Timer;
 
 	// Réglage Timer pour un débordement à 10ms
-	MyTimer_Conf(Chrono_Timer,999, 719);
+	//MyTimer_Conf(Chrono_Timer,999, 719);
 	
 	// Réglage interruption du Timer avec callback : Chrono_Task_10ms()
 	MyTimer_IT_Conf(Chrono_Timer, Chrono_Task_10ms,3);

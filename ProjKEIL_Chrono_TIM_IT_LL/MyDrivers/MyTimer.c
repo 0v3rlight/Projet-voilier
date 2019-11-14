@@ -34,34 +34,39 @@ void (*Ptr_ItFct_TIM4)(void);
 	*					int Psc   : valeur à placer dans PSC
   * @retval None
   */
-void MyTimer_Conf(TIM_TypeDef * Timer,int Arr, int Psc)
+void MyTimer_Conf_encoder(TIM_TypeDef * Timer,int Arr, int Psc)
 {
-	LL_TIM_InitTypeDef My_LL_Tim_Init_Struct;
+	 LL_TIM_ENCODER_InitTypeDef My_LL_Tim_Init_Struct;
 	
 	// Validation horloge locale
 	if (Timer==TIM1) LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_TIM1);
 	else if (Timer==TIM2) LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM2);
 	else if (Timer==TIM3) LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM3);
 	else  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM4);
-	
+
 	// chargement structure Arr, Psc, Up Count
-	My_LL_Tim_Init_Struct.Autoreload=Arr;
-	My_LL_Tim_Init_Struct.Prescaler=Psc;
+	My_LL_Tim_Init_Struct.EncoderMode=LL_TIM_ENCODERMODE_X4_TI12;
+	My_LL_Tim_Init_Struct.IC1Polarity= LL_TIM_IC_POLARITY_RISING ;
+	My_LL_Tim_Init_Struct.IC1ActiveInput= LL_TIM_ACTIVEINPUT_DIRECTTI;
+	My_LL_Tim_Init_Struct.IC1Prescaler= Psc;
+	My_LL_Tim_Init_Struct.IC1Filter= LL_TIM_IC_FILTER_FDIV1;
+	My_LL_Tim_Init_Struct.IC2Polarity= LL_TIM_IC_POLARITY_RISING ;
+	My_LL_Tim_Init_Struct.IC2ActiveInput= LL_TIM_ACTIVEINPUT_INDIRECTTI;
+	My_LL_Tim_Init_Struct.IC2Prescaler= Psc;
+	My_LL_Tim_Init_Struct.IC2Filter= LL_TIM_IC_FILTER_FDIV1;
+	
+	/*My_LL_Tim_Init_Struct.Prescaler=Psc;
 	My_LL_Tim_Init_Struct.ClockDivision=LL_TIM_CLOCKDIVISION_DIV1;
-	My_LL_Tim_Init_Struct.CounterMode=LL_TIM_COUNTERMODE_UP;
-	My_LL_Tim_Init_Struct.RepetitionCounter=0;
+	My_LL_Tim_Init_Struct.CounterMode=LL_TIM_CCUPDATESOURCE_COMG_ONLY;
+	My_LL_Tim_Init_Struct.RepetitionCounter=0;*/
 	
-	LL_TIM_Init(Timer,&My_LL_Tim_Init_Struct);
+	LL_TIM_ENCODER_Init(Timer,&My_LL_Tim_Init_Struct);
 	
-
-	// Blocage IT
-	LL_TIM_DisableIT_UPDATE(Timer);
+	// Configure l'ARR du timer
+	LL_TIM_SetAutoReload (Timer, Arr) ;
 	
-	
-	// Blocage Timer
-	LL_TIM_DisableCounter(Timer);
-	
-
+	// Activation du compteur du timer
+	LL_TIM_EnableCounter(Timer);
 		
 }
 
