@@ -21,8 +21,12 @@
 #include "stm32f1xx_ll_system.h" // utile dans la fonction SystemClock_Config
 
 #include "Chrono.h"
+<<<<<<< HEAD
 #include "telecommande.h"
 
+=======
+#include "girouette/girouette.h"
+>>>>>>> 7fdb92daad03d169595ea874ff75442d85a238ec
 
 void  SystemClock_Config(void);
 
@@ -37,6 +41,7 @@ void  SystemClock_Config(void);
 
 int main(void)
 {
+<<<<<<< HEAD
   /* Configure the system clock to 72 MHz */
   SystemClock_Config();
 
@@ -52,13 +57,21 @@ int main(void)
 	
 
 
+=======
+	init_girouette();
+	int angle;
+>>>>>>> 7fdb92daad03d169595ea874ff75442d85a238ec
   
   /* Infinite loop */
   while (1)
   {
+<<<<<<< HEAD
 		periode = get_period(TIM4);
 		angle = get_angle(periode) ;
 		vitess = (int)get_vitesse(angle) ;
+=======
+		angle = angle_girouette();
+>>>>>>> 7fdb92daad03d169595ea874ff75442d85a238ec
   }
 }
 

@@ -11,4 +11,11 @@ nucleo-f103rb\main.o: ..\Inc\system_stm32f1xx.h
 nucleo-f103rb\main.o: ..\LLDrivers\inc\stm32f1xx_ll_utils.h
 nucleo-f103rb\main.o: ..\LLDrivers\inc\stm32f1xx_ll_system.h
 nucleo-f103rb\main.o: ..\Services\Chrono.h
+<<<<<<< HEAD
 nucleo-f103rb\main.o: ..\Services\Telecommande\telecommande.h
+=======
+nucleo-f103rb\main.o: ..\Services\girouette/girouette.h
+nucleo-f103rb\main.o: ..\LLDrivers\inc\stm32f1xx_ll_gpio.h
+nucleo-f103rb\main.o: ..\LLDrivers\inc\stm32f1xx_ll_tim.h
+nucleo-f103rb\main.o: ..\MyDrivers\MyTimer.h
+>>>>>>> 7fdb92daad03d169595ea874ff75442d85a238ec
