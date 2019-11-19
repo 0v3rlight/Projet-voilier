@@ -21,6 +21,8 @@
 #include "stm32f1xx_ll_system.h" // utile dans la fonction SystemClock_Config
 
 #include "Chrono.h"
+#include "telecommande.h"
+
 
 void  SystemClock_Config(void);
 
@@ -39,17 +41,24 @@ int main(void)
   SystemClock_Config();
 
   /* Add your application code here */
-  // Configuration chronomètre
-	Chrono_Conf(TIM3);
+  // Configuration pgio
+	static int periode = 0;
+	static int angle = 0 ;
+	static int vitess = 0;
 	
-	// Lancement chronomètre
-	Chrono_Start(); 
 	
+	config_gpio() ;
+	init_timer_pwm_input(TIM4) ;
+	
+
 
   
   /* Infinite loop */
   while (1)
   {
+		periode = get_period(TIM4);
+		angle = get_angle(periode) ;
+		vitess = (int)get_vitesse(angle) ;
   }
 }
 
@@ -82,7 +91,7 @@ void SystemClock_Config(void)
   /* Enable HSE oscillator */
 	// ********* Commenter la ligne ci-dessous pour MCBSTM32 *****************
 	// ********* Conserver la ligne si Nucléo*********************************
-  LL_RCC_HSE_EnableBypass();
+  //LL_RCC_HSE_EnableBypass();
   LL_RCC_HSE_Enable();
   while(LL_RCC_HSE_IsReady() != 1)
   {

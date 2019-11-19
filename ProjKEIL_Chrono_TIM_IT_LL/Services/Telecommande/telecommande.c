@@ -90,7 +90,8 @@ int get_period(TIM_TypeDef * Timer){
 }
 
 int get_angle(int per){	
-	return(360*per - 540);	
+	//return(360*per - 151200);	
+	return(1.57*per - 659.4);
 }
 
 float get_vitesse(int angle){	
