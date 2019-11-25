@@ -14,22 +14,14 @@ Utilise la lib MyTimers.h /.c
 #include "telecommande.h"
 #include "stm32f1xx_ll_gpio.h"
 
-void config_gpio(){
+void config_gpio_telecommande(){
 	
 	//enable clock gpio
 	RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;
-	RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;
 	
 	//PB6 en floating input
 	LL_GPIO_SetPinMode(GPIOB,LL_GPIO_PIN_6,LL_GPIO_MODE_FLOATING);
 	
-	//PA1 en output pushpull
-	LL_GPIO_SetPinMode(GPIOA,LL_GPIO_PIN_1,LL_GPIO_MODE_OUTPUT);
-	LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_1, LL_GPIO_OUTPUT_PUSHPULL);
-	
-	//PA2 en output pushpull
-	LL_GPIO_SetPinMode(GPIOA,LL_GPIO_PIN_2,LL_GPIO_MODE_OUTPUT);
-	LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_2, LL_GPIO_OUTPUT_PUSHPULL);
 	
 }
 
@@ -95,6 +87,11 @@ int get_angle(int per){
 }
 
 float get_vitesse(int angle){	
-	return((5/9)*abs(angle));	
+	return((5./9.)*abs(angle));	
+}
+
+int get_sens(int angle){
+	if (angle <0) return(-1);
+	else return(1);
 }
 
